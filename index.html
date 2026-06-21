@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x: hidden;">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Muse by Anahita | Luxury Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: white; margin: 0; overflow-x: hidden; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0a0a0a; 
+            color: white; 
+            margin: 0; 
+            overflow-x: hidden; 
+            width: 100%;
+        }
         .font-serif { font-family: 'Playfair Display', serif; }
 
         /* FIXED VIDEO CONTAINER */
@@ -26,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            pointer-events: none; /* Prevents users from clicking/pausing video */
         }
 
         .video-foreground iframe {
@@ -38,6 +45,15 @@
             min-height: 75vh;
             min-width: 133.33vh; /* ensures cover */
             transform: translate(-50%, -50%);
+        }
+
+        /* Adjustments for vertical mobile screens to ensure video fills background */
+        @media (max-aspect-ratio: 16/9) {
+            .video-foreground iframe {
+                width: 300vh; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
         }
 
         .video-overlay {
@@ -53,14 +69,15 @@
         /* ANIMATED GLOW */
         .glow-bg {
             position: relative;
-            padding: 80px 20px;
+            padding: 60px 15px;
             background: #0a0a0a;
+            overflow: hidden;
         }
 
         .blob {
             position: absolute;
-            width: 500px;
-            height: 500px;
+            width: 300px;
+            height: 300px;
             background: radial-gradient(circle, rgba(76,29,149,0.2) 0%, rgba(0,0,0,0) 70%);
             filter: blur(60px);
             z-index: 1;
@@ -68,8 +85,8 @@
         }
 
         @keyframes move {
-            from { transform: translate(-5%, -5%); }
-            to { transform: translate(5%, 5%); }
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(10%, 10%); }
         }
 
         .calendly-wrapper {
@@ -78,32 +95,46 @@
             background: rgba(255,255,255,0.02);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
+            border-radius: 20px;
             overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Prevent potential horizontal scroll from tracking */
+        .tracking-widest-mobile {
+            letter-spacing: 0.3em;
+        }
+        @media (min-width: 768px) {
+            .tracking-widest-mobile {
+                letter-spacing: 0.5em;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- NAV -->
-    <nav class="absolute top-0 w-full z-50 py-10 text-center">
-        <h1 class="text-3xl md:text-4xl font-serif tracking-[0.3em] uppercase">Muse</h1>
-        <span class="block text-[10px] tracking-[0.5em] font-sans uppercase text-stone-500 mt-1">By Anahita</span>
+    <nav class="absolute top-0 w-full z-50 py-8 md:py-10 text-center px-4">
+        <h1 class="text-2xl md:text-4xl font-serif tracking-[0.2em] md:tracking-[0.3em] uppercase">Muse</h1>
+        <span class="block text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] font-sans uppercase text-stone-500 mt-1">By Anahita</span>
     </nav>
 
     <!-- VIDEO HERO -->
     <section class="hero-container">
         <div class="video-foreground">
             <!-- 
+                controls=0 (Hide UI)
                 autoplay=1 (Play immediately)
                 mute=1 (Required for autoplay)
                 loop=1 (Loop back)
-                playlist=8XhS102O0YI (Required for loop)
-                playsinline=1 (Required for Mobile)
-                controls=0 (Hide YouTube UI)
+                playlist=xiv5PBwG3OU (Required for loop)
+                playsinline=1 (Mobile compatibility)
+                disablekb=1 (Disable keyboard shortcuts)
+                iv_load_policy=3 (Hide annotations)
             -->
             <iframe 
-                src="https://www.youtube.com/embed/xiv5PBwG3OU?controls=0&autoplay=1&mute=1&loop=1&playlist=xiv5PBwG3OU&rel=0&showinfo=0&enablejsapi=1&playsinline=1" 
+                src="https://www.youtube.com/embed/xiv5PBwG3OU?controls=0&autoplay=1&mute=1&loop=1&playlist=xiv5PBwG3OU&rel=0&showinfo=0&enablejsapi=1&playsinline=1&disablekb=1&modestbranding=1&iv_load_policy=3" 
                 frameborder="0" 
                 allow="autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
@@ -111,9 +142,9 @@
         </div>
         <div class="video-overlay"></div>
         
-        <div class="relative z-10 flex flex-col items-center justify-end h-full pb-20 px-6 text-center">
+        <div class="relative z-10 flex flex-col items-center justify-end h-full pb-16 md:pb-20 px-6 text-center">
             <h2 class="text-3xl md:text-6xl font-serif italic mb-6">Redefine Your Beauty</h2>
-            <p class="text-stone-300 text-[10px] md:text-xs tracking-[0.4em] uppercase max-w-xl leading-loose">
+            <p class="text-stone-300 text-[9px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase max-w-sm md:max-w-xl leading-loose">
                 Select the date, time & service of your choice to book your session with our specialists.
             </p>
         </div>
@@ -127,29 +158,29 @@
         <div class="max-w-5xl mx-auto calendly-wrapper shadow-2xl">
             <div class="calendly-inline-widget" 
                  data-url="https://calendly.com/musemarketing333/muse-by-anahita?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=ffffff&primary_color=ffffff" 
-                 style="min-width:320px; height:800px;">
+                 style="min-width:320px; height:700px; width: 100%;">
             </div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-24 px-6 text-center border-t border-white/5">
+    <footer class="py-16 md:py-24 px-6 text-center border-t border-white/5">
         <div class="max-w-3xl mx-auto">
-            <h3 class="font-serif text-3xl mb-12 tracking-widest uppercase">Visit the Studio</h3>
+            <h3 class="font-serif text-2xl md:text-3xl mb-10 md:mb-12 tracking-widest uppercase">Visit the Studio</h3>
             
             <div class="space-y-6 mb-12">
-                <p class="text-stone-400 text-xs md:text-sm uppercase tracking-widest">Phase 6, DHA, Karachi, Pakistan</p>
+                <p class="text-stone-400 text-[10px] md:text-sm uppercase tracking-widest-mobile">Phase 6, DHA, Karachi, Pakistan</p>
                 <a href="https://instagram.com/muse_by_anahita" target="_blank" class="block text-stone-300 text-sm italic hover:text-white transition">@muse_by_anahita</a>
             </div>
             
             <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-                <a href="https://wa.me/923314666585" target="_blank" class="border border-white/20 px-10 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition duration-500">
+                <a href="https://wa.me/923314666585" target="_blank" class="w-full md:w-auto border border-white/20 px-8 md:px-10 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition duration-500">
                     WhatsApp: +92 331 4666585
                 </a>
             </div>
             
-            <div class="mt-20 text-[9px] text-stone-700 uppercase tracking-[0.5em]">
+            <div class="mt-16 md:mt-20 text-[8px] md:text-[9px] text-stone-700 uppercase tracking-[0.4em] md:tracking-[0.5em] px-4">
                 &copy; 2025 Muse By Anahita. All Rights Reserved.
             </div>
         </div>
