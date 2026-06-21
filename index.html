@@ -19,6 +19,7 @@
             overflow: hidden;
         }
 
+        /* The "Secret Sauce" for Background Videos */
         .video-foreground {
             position: absolute;
             top: 0;
@@ -33,9 +34,9 @@
             top: 50%;
             left: 50%;
             width: 100vw;
-            height: 56.25vw; 
+            height: 56.25vw; /* 16:9 ratio */
             min-height: 75vh;
-            min-width: 133.33vh; 
+            min-width: 133.33vh; /* ensures cover */
             transform: translate(-50%, -50%);
         }
 
@@ -74,7 +75,8 @@
         .calendly-wrapper {
             position: relative;
             z-index: 10;
-            background: white; /* Changed to white to match the new widget theme */
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 30px;
             overflow: hidden;
@@ -92,8 +94,16 @@
     <!-- VIDEO HERO -->
     <section class="hero-container">
         <div class="video-foreground">
+            <!-- 
+                autoplay=1 (Play immediately)
+                mute=1 (Required for autoplay)
+                loop=1 (Loop back)
+                playlist=8XhS102O0YI (Required for loop)
+                playsinline=1 (Required for Mobile)
+                controls=0 (Hide YouTube UI)
+            -->
             <iframe 
-                src="https://www.youtube.com/embed/8XhS102O0YI?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=8XhS102O0YI" 
+                src="https://www.youtube.com/embed/xiv5PBwG3OU?controls=0&autoplay=1&mute=1&loop=1&playlist=xiv5PBwG3OU&rel=0&showinfo=0&enablejsapi=1&playsinline=1" 
                 frameborder="0" 
                 allow="autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
@@ -115,14 +125,8 @@
         <div class="blob" style="bottom: 0; right: 0; background: radial-gradient(circle, rgba(131,24,67,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
 
         <div class="max-w-5xl mx-auto calendly-wrapper shadow-2xl">
-            <!-- 
-                FIX APPLIED BELOW:
-                background_color changed to ffffff (white)
-                text_color changed to 000000 (black)
-                primary_color changed to 000000 (black buttons)
-            -->
             <div class="calendly-inline-widget" 
-                 data-url="https://calendly.com/musemarketing333/muse-by-anahita?hide_event_type_details=1&hide_gdpr_banner=1&background_color=ffffff&text_color=000000&primary_color=000000" 
+                 data-url="https://calendly.com/musemarketing333/muse-by-anahita?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=ffffff&primary_color=ffffff" 
                  style="min-width:320px; height:800px;">
             </div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
