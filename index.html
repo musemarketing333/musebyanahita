@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="overflow-x: hidden;">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -12,6 +12,7 @@
             background-color: #0a0a0a; 
             color: white; 
             margin: 0; 
+            padding: 0;
             overflow-x: hidden; 
             width: 100%;
         }
@@ -33,9 +34,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Prevents users from clicking/pausing video */
+            pointer-events: none;
         }
 
+        /* Video scaling to ensure it acts like 'background-size: cover' */
         .video-foreground iframe {
             position: absolute;
             top: 50%;
@@ -43,16 +45,15 @@
             width: 100vw;
             height: 56.25vw; /* 16:9 ratio */
             min-height: 75vh;
-            min-width: 133.33vh; /* ensures cover */
+            min-width: 133.33vh; /* 75 * 1.77 */
             transform: translate(-50%, -50%);
         }
 
-        /* Adjustments for vertical mobile screens to ensure video fills background */
+        /* Mobile specific video fill logic */
         @media (max-aspect-ratio: 16/9) {
             .video-foreground iframe {
-                width: 300vh; 
-                left: 50%;
-                transform: translate(-50%, -50%);
+                width: 177.77vh; /* ensures the 16:9 video covers the vertical space */
+                height: 75vh;
             }
         }
 
@@ -62,14 +63,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, rgba(10,10,10,1) 100%);
+            background: linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,1) 100%);
             z-index: 2;
         }
 
         /* ANIMATED GLOW */
         .glow-bg {
             position: relative;
-            padding: 60px 15px;
+            padding: 40px 0; /* Reduced padding for mobile */
             background: #0a0a0a;
             overflow: hidden;
         }
@@ -78,7 +79,7 @@
             position: absolute;
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, rgba(76,29,149,0.2) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(76,29,149,0.15) 0%, rgba(0,0,0,0) 70%);
             filter: blur(60px);
             z-index: 1;
             animation: move 15s infinite alternate;
@@ -89,6 +90,7 @@
             to { transform: translate(10%, 10%); }
         }
 
+        /* CALENDLY RESPONSIVENESS */
         .calendly-wrapper {
             position: relative;
             z-index: 10;
@@ -97,25 +99,20 @@
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
             overflow: hidden;
-            width: 100%;
-            max-width: 100%;
+            width: 95%; /* Margin for mobile */
+            margin: 0 auto;
         }
 
-        /* Prevent potential horizontal scroll from tracking */
-        .tracking-widest-mobile {
-            letter-spacing: 0.3em;
-        }
         @media (min-width: 768px) {
-            .tracking-widest-mobile {
-                letter-spacing: 0.5em;
-            }
+            .calendly-wrapper { width: 100%; max-width: 1024px; }
+            .glow-bg { padding: 80px 20px; }
         }
     </style>
 </head>
 <body>
 
     <!-- NAV -->
-    <nav class="absolute top-0 w-full z-50 py-8 md:py-10 text-center px-4">
+    <nav class="absolute top-0 w-full z-50 py-8 md:py-10 text-center">
         <h1 class="text-2xl md:text-4xl font-serif tracking-[0.2em] md:tracking-[0.3em] uppercase">Muse</h1>
         <span class="block text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] font-sans uppercase text-stone-500 mt-1">By Anahita</span>
     </nav>
@@ -123,18 +120,9 @@
     <!-- VIDEO HERO -->
     <section class="hero-container">
         <div class="video-foreground">
-            <!-- 
-                controls=0 (Hide UI)
-                autoplay=1 (Play immediately)
-                mute=1 (Required for autoplay)
-                loop=1 (Loop back)
-                playlist=xiv5PBwG3OU (Required for loop)
-                playsinline=1 (Mobile compatibility)
-                disablekb=1 (Disable keyboard shortcuts)
-                iv_load_policy=3 (Hide annotations)
-            -->
+            <!-- parameters: controls=0, disablekb=1, modestbranding=1, rel=0 to remove all UI -->
             <iframe 
-                src="https://www.youtube.com/embed/xiv5PBwG3OU?controls=0&autoplay=1&mute=1&loop=1&playlist=xiv5PBwG3OU&rel=0&showinfo=0&enablejsapi=1&playsinline=1&disablekb=1&modestbranding=1&iv_load_policy=3" 
+                src="https://www.youtube.com/embed/xiv5PBwG3OU?controls=0&autoplay=1&mute=1&loop=1&playlist=xiv5PBwG3OU&rel=0&showinfo=0&enablejsapi=1&playsinline=1&modestbranding=1&disablekb=1&iv_load_policy=3" 
                 frameborder="0" 
                 allow="autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
@@ -143,8 +131,8 @@
         <div class="video-overlay"></div>
         
         <div class="relative z-10 flex flex-col items-center justify-end h-full pb-16 md:pb-20 px-6 text-center">
-            <h2 class="text-3xl md:text-6xl font-serif italic mb-6">Redefine Your Beauty</h2>
-            <p class="text-stone-300 text-[9px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase max-w-sm md:max-w-xl leading-loose">
+            <h2 class="text-3xl md:text-6xl font-serif italic mb-4">Redefine Your Beauty</h2>
+            <p class="text-stone-300 text-[9px] md:text-xs tracking-[0.2em] md:tracking-[0.4em] uppercase max-w-[280px] md:max-w-xl leading-relaxed">
                 Select the date, time & service of your choice to book your session with our specialists.
             </p>
         </div>
@@ -153,34 +141,36 @@
     <!-- CALENDLY SECTION -->
     <section class="glow-bg">
         <div class="blob" style="top: 0; left: 0;"></div>
-        <div class="blob" style="bottom: 0; right: 0; background: radial-gradient(circle, rgba(131,24,67,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+        <div class="blob" style="bottom: 0; right: 0; background: radial-gradient(circle, rgba(131,24,67,0.1) 0%, rgba(0,0,0,0) 70%);"></div>
 
-        <div class="max-w-5xl mx-auto calendly-wrapper shadow-2xl">
+        <div class="calendly-wrapper shadow-2xl">
+            <!-- Adjusted min-height for mobile to prevent internal scrolling -->
             <div class="calendly-inline-widget" 
                  data-url="https://calendly.com/musemarketing333/muse-by-anahita?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=ffffff&primary_color=ffffff" 
-                 style="min-width:320px; height:700px; width: 100%;">
+                 style="min-width:320px; height:750px; width:100%;">
             </div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-16 md:py-24 px-6 text-center border-t border-white/5">
+    <footer class="py-16 md:py-24 px-4 text-center border-t border-white/5">
         <div class="max-w-3xl mx-auto">
-            <h3 class="font-serif text-2xl md:text-3xl mb-10 md:mb-12 tracking-widest uppercase">Visit the Studio</h3>
+            <h3 class="font-serif text-2xl md:text-3xl mb-8 md:mb-12 tracking-widest uppercase">Visit the Studio</h3>
             
-            <div class="space-y-6 mb-12">
-                <p class="text-stone-400 text-[10px] md:text-sm uppercase tracking-widest-mobile">Phase 6, DHA, Karachi, Pakistan</p>
+            <div class="space-y-4 md:space-y-6 mb-12">
+                <!-- Reduced tracking-widest for mobile to prevent overflow -->
+                <p class="text-stone-400 text-[10px] md:text-sm uppercase tracking-[0.2em] md:tracking-widest">Phase 6, DHA, Karachi, Pakistan</p>
                 <a href="https://instagram.com/muse_by_anahita" target="_blank" class="block text-stone-300 text-sm italic hover:text-white transition">@muse_by_anahita</a>
             </div>
             
             <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-                <a href="https://wa.me/923314666585" target="_blank" class="w-full md:w-auto border border-white/20 px-8 md:px-10 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition duration-500">
+                <a href="https://wa.me/923314666585" target="_blank" class="w-full md:w-auto border border-white/20 px-8 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition duration-500">
                     WhatsApp: +92 331 4666585
                 </a>
             </div>
             
-            <div class="mt-16 md:mt-20 text-[8px] md:text-[9px] text-stone-700 uppercase tracking-[0.4em] md:tracking-[0.5em] px-4">
+            <div class="mt-16 text-[8px] md:text-[9px] text-stone-700 uppercase tracking-[0.3em] md:tracking-[0.5em]">
                 &copy; 2025 Muse By Anahita. All Rights Reserved.
             </div>
         </div>
