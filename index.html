@@ -3,77 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Now | Muse by Anahita</title>
+    <title>Muse by Anahita | Luxury Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: white; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        /* This hides the double scrollbar issue */
-        .calendly-inline-widget { overflow: hidden !important; }
+
+        /* Animated Gradient Glow */
+        .glow-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; opacity: 0.4; }
+        .blob { position: absolute; width: 500px; height: 500px; background: linear-gradient(135deg, #4c1d95 0%, #1e3a8a 100%); filter: blur(80px); border-radius: 50%; animation: move 20s infinite alternate; }
+        .blob-2 { background: linear-gradient(135deg, #831843 0%, #4c1d95 100%); animation-delay: -5s; left: 30%; }
+        .blob-3 { background: linear-gradient(135deg, #1e3a8a 0%, #115e59 100%); animation-delay: -10s; right: 0; }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%) scale(1); }
+            to { transform: translate(20%, 20%) scale(1.2); }
+        }
+
+        /* Video Overlay */
+        .video-container { position: relative; width: 100%; height: 70vh; overflow: hidden; }
+        .video-container iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 70vh; min-width: 124.44vh; transform: translate(-50%, -50%); pointer-events: none; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, rgba(10,10,10,1) 95%); }
     </style>
 </head>
-<body class="text-stone-800">
+<body>
 
-    <!-- SIMPLE LOGO HEADER -->
-    <nav class="w-full flex justify-center items-center py-10 bg-white">
+    <!-- LOGO HEADER -->
+    <nav class="absolute top-0 w-full z-50 flex justify-center py-8">
         <div class="text-center">
-            <h1 class="text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase text-stone-900">
-                Muse
-            </h1>
-            <span class="block text-[10px] tracking-[0.4em] font-sans uppercase text-stone-400 mt-1">By Anahita</span>
+            <h1 class="text-3xl md:text-4xl font-serif tracking-[0.3em] uppercase text-white">Muse</h1>
+            <span class="block text-[10px] tracking-[0.5em] font-sans uppercase text-stone-400 mt-1">By Anahita</span>
         </div>
     </nav>
 
-    <!-- INTRO SECTION -->
-    <header class="max-w-3xl mx-auto text-center px-6 pb-12">
-        <h2 class="text-2xl md:text-3xl font-serif italic text-stone-700 mb-4">Luxury Beauty & Makeup Studio</h2>
-        <p class="text-stone-500 text-sm md:text-base leading-relaxed font-light">
-            Located in the heart of DHA, Karachi. <br class="hidden md:block"> 
-            Select a service below to book your session with our specialists.
-        </p>
-    </header>
-
-    <!-- CALENDLY MAIN FOCUS -->
-    <section class="max-w-5xl mx-auto px-4 mb-20">
-        <div class="relative bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-stone-100 overflow-hidden">
-            <!-- CALENDLY WIDGET START -->
-            <div class="calendly-inline-widget" 
-                 data-url="https://calendly.com/musemarketing333/muse-by-anahita?hide_event_type_details=1&hide_gdpr_banner=1" 
-                 style="min-width:320px; height:750px;">
-            </div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-            <!-- CALENDLY WIDGET END -->
+    <!-- VIDEO HERO -->
+    <div class="video-container">
+        <!-- Using your YouTube link with parameters for Autoplay/Mute/Loop -->
+        <iframe src="https://www.youtube.com/embed/8XhS102O0YI?autoplay=1&mute=1&controls=0&loop=1&playlist=8XhS102O0YI&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="overlay flex flex-col items-center justify-end pb-20 px-6 text-center">
+            <h2 class="text-3xl md:text-5xl font-serif italic mb-4">Unveil Your Radiance</h2>
+            <p class="text-stone-400 text-sm md:text-lg max-w-2xl font-light uppercase tracking-widest">
+                Select the date, time & service of your choice to book your session with our specialists.
+            </p>
         </div>
-    </section>
+    </div>
 
-    <!-- MINI GALLERY -->
-    <section class="bg-stone-50 py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h3 class="text-center font-serif text-xl italic mb-10 text-stone-600">The Muse Experience</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80" alt="Salon" class="rounded-lg aspect-[3/4] object-cover">
-                <img src="https://images.unsplash.com/photo-1522337621169-7c23e1ca3f5a?auto=format&fit=crop&w=600&q=80" alt="Makeup" class="rounded-lg aspect-[3/4] object-cover">
-                <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80" alt="Hair" class="rounded-lg aspect-[3/4] object-cover">
-                <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=600&q=80" alt="Beauty" class="rounded-lg aspect-[3/4] object-cover">
+    <!-- BOOKING SECTION WITH ANIMATED GLOW -->
+    <section class="relative py-20 px-4">
+        <!-- The Background Glow Effect -->
+        <div class="glow-wrapper">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="bg-black/40 backdrop-blur-md rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+                <!-- CALENDLY WIDGET -->
+                <div class="calendly-inline-widget" 
+                     data-url="https://calendly.com/musemarketing333/muse-by-anahita?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0a0a0a&text_color=ffffff&primary_color=ffffff" 
+                     style="min-width:320px; height:850px;">
+                </div>
+                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER / CONTACT -->
-    <footer class="py-20 px-6 text-center">
+    <!-- FOOTER -->
+    <footer class="py-20 px-6 text-center border-t border-white/5">
         <div class="max-w-2xl mx-auto">
-            <h3 class="font-serif text-2xl mb-6">Visit Us</h3>
-            <p class="text-stone-500 text-sm mb-2 uppercase tracking-widest">DHA Phase 6, Karachi</p>
-            <p class="text-stone-500 text-sm mb-8 italic">Near Bukhari Commercial</p>
+            <h3 class="font-serif text-2xl mb-8 tracking-widest uppercase">Visit the Studio</h3>
+            <p class="text-stone-400 text-sm mb-2 uppercase tracking-widest">Phase 6, DHA, Karachi</p>
+            <p class="text-stone-500 text-sm mb-10 italic">Pakistan</p>
             
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-stone-400 text-[11px] tracking-[0.2em] uppercase">
-                <span>Instagram: @muse_by_anahita</span>
-                <span class="hidden md:inline">•</span>
-                <span>WhatsApp: +92 300 1234567</span>
-            </div>
+            <a href="https://wa.me/923314666585" target="_blank" class="inline-block border border-white/20 px-8 py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition duration-500">
+                Contact via WhatsApp: +92 331 4666585
+            </a>
             
-            <div class="mt-12 pt-8 border-t border-stone-100 text-[10px] text-stone-300 uppercase tracking-widest">
+            <div class="mt-16 text-[9px] text-stone-600 uppercase tracking-[0.4em]">
                 &copy; 2025 Muse By Anahita. All Rights Reserved.
             </div>
         </div>
